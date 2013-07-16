@@ -13,8 +13,16 @@
 ### Arrays
 
 **pushAll** - pushes an array of items to an observable array without firing a new event for each item.
+```
+var myArray = ko.observableArray([]);
+myArray.pushAll(additionalValues);
+```
 
 **replaceAll** - replaces all items in an observable array without firing a new event for each item.
+```
+var myArray = ko.observableArray(initialValues);
+myArray.replaceAll(newValues);
+```
 
 ## Extenders
 
