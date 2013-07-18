@@ -1,12 +1,43 @@
 ## Bindings
 
-**numericText** - Similar to the text binding, but for a numeric value, to use: { type: "numeric", precision: 2 }
+**numericText** - Similar to the text binding, but for a numeric value, to use: 
+
+```javascript
+data-bind="numericText: numberValue, precision: 2"
+```
 
 ### Bootstrap Bindings
 
 **modal** - Binds a modal dialog
 
+To use, specify data-bind="modal: boolValue", eg:
+
+```
+<a href="#" class="btn" data-bind="click: showModalToggle">Modal Test</a>
+
+<div class="modal hide fade" data-bind="modal: showModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body</p>
+    <form data-bind="submit:showModalToggle"></form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-bind="click: showModalToggle">Close</a>
+    <a href="#" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
+```
+
 **slider** - Binds a slider control
+
+To use, specify  data-bind="modal: boolValue", eg:
+
+```
+<input type="text" value="0" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" data-bind="slider: sliderValue">
+```
 
 ## Functions
 
@@ -33,4 +64,8 @@ var myValue = ko.observable(1.223123).extend({numeric: 1});
 
 ## Transitions
 
-None yet
+**fadeVisible** - the same as visible, except that it fades the element in and out
+```
+<div data-bind="fadeVisible: showFadeText">TEST</div>
+<a href="#" class="btn" data-bind="click: fadeToggle">Fade In/Out</a>
+```

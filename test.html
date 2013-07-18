@@ -16,10 +16,13 @@
 	
 </head>
 <body>
-	<h1>numberText Binding</h1>
+	<h1>Numeric Text Binding</h1>
 	<ul data-bind="foreach: numbers">
 		<li data-bind="numericText: test, precision: 2"></li>
 	</ul>
+	
+	<h2>Numeric Extender</h2>
+	<div data-bind="text: numericValue"></div>
 	
 	<h1>Add/Replace</h1>
 	<ul data-bind="foreach: dates">
@@ -39,10 +42,6 @@
 	
 	<h2>Modal Binding</h2>
 	<a href="#" class="btn" data-bind="click: showModalToggle">Modal Test</a>
-	
-	<h2>Numeric Extender</h2>
-	<div data-bind="text: numericValue">
-	</div>
 	
 	<div class="modal hide fade" data-bind="modal: showModal">
 	  <div class="modal-header">
