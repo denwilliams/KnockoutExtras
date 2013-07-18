@@ -1,3 +1,5 @@
+NOTE: Check out the test.html page for a working example
+
 ## Bindings
 
 **numericText** - Similar to the text binding, but for a numeric value, to use: 
@@ -36,7 +38,7 @@ To use, specify data-bind="modal: boolValue", eg:
 To use, specify  data-bind="modal: boolValue", eg:
 
 ```
-<input type="text" value="0" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" data-bind="slider: sliderValue">
+<input type="text" value="0" data-bind="slider: sliderValue" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
 ```
 
 ## Functions
