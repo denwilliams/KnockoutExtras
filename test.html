@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>TEST PAGE</title>
+
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link href="http://www.eyecon.ro/bootstrap-slider/css/slider.css" rel="stylesheet">
+	
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+	<script src="http://www.eyecon.ro/bootstrap-slider/js/bootstrap-slider.js"></script>
+	<script src="ko.extras.js"></script>
+	<script src="ko.extras.bootstrap.js"></script>
+	
+</head>
+<body>
+	<h1>numberText Binding</h1>
+	<ul data-bind="foreach: numbers">
+		<li data-bind="numericText: test, precision: 2"></li>
+	</ul>
+	
+	<h1>Add/Replace</h1>
+	<ul data-bind="foreach: dates">
+		<li data-bind="text: value"></li>
+	</ul>
+	<a href="#" class="btn" data-bind="click: addDates">Add</a> 
+	<a href="#" class="btn" data-bind="click: replaceDates">Replace</a> 
+	
+	<h2>Fade Visible</h2>
+	<div data-bind="fadeVisible: showFadeText">TEST</div>
+	<a href="#" class="btn" data-bind="click: fadeToggle">Fade In/Out</a>
+	
+	<h2>Slider</h2>
+	<input type="text" value="0" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" data-bind="slider: sliderValue">
+	<br/>
+	<input data-bind="value: sliderValue">
+	
+	<h2>Modal Binding</h2>
+	<a href="#" class="btn" data-bind="click: showModalToggle">Modal Test</a>
+	
+	<h2>Numeric Extender</h2>
+	<div data-bind="text: numericValue">
+	</div>
+	
+	<div class="modal hide fade" data-bind="modal: showModal">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3>Modal header</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>One fine body</p>
+	    <hr/>
+	    <form data-bind="submit:showModalToggle"></form>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" data-bind="click: showModalToggle">Close</a>
+	    <a href="#" class="btn btn-primary">Save changes</a>
+	  </div>
+	</div>
+
+	<script>
+		(function() {
+			var x = [];
+			x.push({test: 100/30});
+			x.push({test: 100/31});
+			x.push({test: 100/130});
+			
+			var model = {};
+			
+			model.numbers = ko.observableArray(x);
+			model.dates = ko.observableArray(getDates());
+			model.numericValue = ko.observable(1.223123).extend({numeric: 1});
+			model.addDates = addDates;
+			model.replaceDates = replaceDates;
+			model.showFadeText = ko.observable(true);
+			model.fadeToggle = fadeToggle;
+			model.showModal = ko.observable(false);
+			model.showModalToggle = showModalToggle;
+			model.sliderValue = ko.observable(5);
+			
+			ko.applyBindings(model);
+			
+			function getDates() {
+				var d = new Date().getTime();
+				var x = [
+					{value: d++}, 
+					{value: d++}, 
+					{value: d++}
+				];
+				return x;
+			}
+			function addDates() {
+				model.dates.pushAll(getDates());
+			}
+			function replaceDates() {
+				model.dates.replaceAll(getDates());
+			}
+			function fadeToggle() {
+				model.showFadeText(!model.showFadeText());
+			}
+			function showModalToggle() {
+				model.showModal(!model.showModal());
+			}
+		})();
+	</script>
+</body>
