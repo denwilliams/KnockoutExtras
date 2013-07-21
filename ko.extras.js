@@ -22,11 +22,8 @@
 	 * Replaces all the values in a knockout array with a new set
 	 */
 	ko.observableArray.fn.replaceAll = function(valuesToPush) {
-	    this.removeAll();
-	    this.pushAll(valuesToPush);
+	    this(valuesToPush);
 	    return this;
-	    
-	    // would probably be just the same to go this(valuesToPush) ??
 	};
 	
 	// ###################
@@ -66,6 +63,19 @@
 	        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
 	    },
 	    defaultPrecision: 1  
+	};
+
+	/**
+	 * JSON Knockout binding. Useful for debugging.
+	 * to use - data-bind="json: value"
+	 */
+	ko.bindingHandlers.json = {
+	    update: function(element, valueAccessor, allBindingsAccessor) {
+	       var value = ko.utils.unwrapObservable(valueAccessor()),
+	           formattedValue = JSON.stringify(value);
+	
+	        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
+	    }
 	};
 
 	// #####################
