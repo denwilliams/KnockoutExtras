@@ -21,6 +21,9 @@
 		<li data-bind="numericText: test, precision: 2"></li>
 	</ul>
 	
+	<h1>JSON Binding</h1>
+	<div data-bind="json: obj"></div>
+	
 	<h2>Numeric Extender</h2>
 	<div data-bind="text: numericValue"></div>
 	
@@ -78,6 +81,7 @@
 			model.showModal = ko.observable(false);
 			model.showModalToggle = showModalToggle;
 			model.sliderValue = ko.observable(5);
+			model.obj = {propa: 1234, propb: {x: 'a', y: 'b'}};
 			
 			ko.applyBindings(model);
 			

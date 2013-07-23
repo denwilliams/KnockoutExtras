@@ -8,6 +8,12 @@ NOTE: Check out the test.html page for a working example
 data-bind="numericText: numberValue, precision: 2"
 ```
 
+**json** - Displays the selected value or object in JSON notation. Useful for debugging: 
+
+```javascript
+data-bind="json: value"
+```
+
 ### Bootstrap Bindings
 
 **modal** - Binds a modal dialog
