@@ -1,5 +1,5 @@
-(function (ko, $) {
-	if (typeof ko === 'undefined' || typeof $ === 'undefined')
+(function (ko) {
+	if (typeof ko === 'undefined')
 		return;
 	
 	// ###################
@@ -24,6 +24,15 @@
 	ko.observableArray.fn.replaceAll = function(valuesToPush) {
 	    this(valuesToPush);
 	    return this;
+	};
+
+    /**
+     * Inverts or toggles a boolean observable.
+     * to use - var obs = ko.observable(false);
+     * obs.toggle();
+     */
+	ko.observable.fn.toggle = function (arg) {
+	    this(!this());
 	};
 	
 	// ###################
@@ -65,6 +74,7 @@
 	    defaultPrecision: 1  
 	};
 
+
 	/**
 	 * JSON Knockout binding. Useful for debugging.
 	 * to use - data-bind="json: value"
@@ -77,41 +87,5 @@
 	        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
 	    }
 	};
-    
-    /**
-     * Click Toggle binding for toggling boolean observables.
-     * to use - data-bind="clickToggle: boolObservable"
-     */
-    ko.bindingHandlers.clickToggle = {
-        init: function (element, valueAccessor) {
-            var value = valueAccessor();
-            if (ko.isObservable(value)) {
-                $(element).click(function(e) {
-                    value(!value());
-                });
-            }
-        }
-    };
 
-	// #####################
-	// #### TRANSITIONS ####
-	// #####################
-
-	/**
-	 * Similar to the visible binding, except that it fades the element in and out.
-	 * Requires jQuery.
-	 * Note: this is taken direct from the Knockout website
-	 */
-	ko.bindingHandlers.fadeVisible = {
-	    init: function(element, valueAccessor) {
-	        // Initially set the element to be instantly visible/hidden depending on the value
-	        var value = valueAccessor();
-	        $(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
-	    },
-	    update: function(element, valueAccessor) {
-	        // Whenever the value subsequently changes, slowly fade the element in or out
-	        var value = valueAccessor();
-	        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
-	    }
-	};
-})(ko, $);
+})(ko);
