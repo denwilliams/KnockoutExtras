@@ -36,7 +36,7 @@
 	
 	<h2>Fade Visible</h2>
 	<div data-bind="fadeVisible: showFadeText">TEST</div>
-	<a href="#" class="btn" data-bind="click: fadeToggle">Fade In/Out</a>
+	<a href="#" class="btn" data-bind="clickToggle: showFadeText">Fade In/Out</a>
 	
 	<h2>Slider</h2>
 	<input type="text" value="0" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" data-bind="slider: sliderValue">
@@ -77,7 +77,6 @@
 			model.addDates = addDates;
 			model.replaceDates = replaceDates;
 			model.showFadeText = ko.observable(true);
-			model.fadeToggle = fadeToggle;
 			model.showModal = ko.observable(false);
 			model.showModalToggle = showModalToggle;
 			model.sliderValue = ko.observable(5);
@@ -99,9 +98,6 @@
 			}
 			function replaceDates() {
 				model.dates.replaceAll(getDates());
-			}
-			function fadeToggle() {
-				model.showFadeText(!model.showFadeText());
 			}
 			function showModalToggle() {
 				model.showModal(!model.showModal());

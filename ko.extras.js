@@ -1,5 +1,5 @@
-(function(ko, $) {
-	if (typeof ko == 'undefined' || typeof $ == 'undefined')
+(function (ko, $) {
+	if (typeof ko === 'undefined' || typeof $ === 'undefined')
 		return;
 	
 	// ###################
@@ -77,6 +77,21 @@
 	        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
 	    }
 	};
+    
+    /**
+     * Click Toggle binding for toggling boolean observables.
+     * to use - data-bind="clickToggle: boolObservable"
+     */
+    ko.bindingHandlers.clickToggle = {
+        init: function (element, valueAccessor) {
+            var value = valueAccessor();
+            if (ko.isObservable(value)) {
+                $(element).click(function(e) {
+                    value(!value());
+                });
+            }
+        }
+    };
 
 	// #####################
 	// #### TRANSITIONS ####
