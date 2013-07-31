@@ -3,21 +3,6 @@
 		return;
 	
     /**
-     * Binds the value to the HREF attribute
-     * to use - <a data-bind="href: someObservable">Link</a>
-     */
-	ko.bindingHandlers.href = {
-	    init: function (element, valueAccessor) {
-	        var value = ko.utils.unwrapObservable(valueAccessor());
-	        $(element).attr('href', value);
-	    },
-	    update: function (element, valueAccessor) {
-	        var value = ko.utils.unwrapObservable(valueAccessor());
-	        $(element).attr('href', value);
-	    }
-	};
-    
-    /**
      * Click Toggle binding for toggling boolean observables.
      * to use - data-bind="clickToggle: boolObservable"
      */

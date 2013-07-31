@@ -87,5 +87,35 @@
 	        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
 	    }
 	};
+	
+	/**
+     * Sets the HREF attribute (for links)
+     */
+    ko.bindingHandlers.href = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            ko.bindingHandlers.attr.update(element, function () { return { href: value }; });
+        }
+    };
+    
+    /**
+     * Sets the SRC attribute (for images)
+     */
+    ko.bindingHandlers.src = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            ko.bindingHandlers.attr.update(element, function () { return { src: value }; });
+        }
+    };
+    
+    /**
+     * Alias for the inverse of visible
+     */
+    ko.bindingHandlers.hidden = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            ko.bindingHandlers.visible.update(element, function () { return !value; });
+        }
+    };
 
 })(ko);
