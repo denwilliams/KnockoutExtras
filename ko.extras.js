@@ -1,5 +1,5 @@
-(function(ko) {
-	if (typeof ko == 'undefined')
+(function (ko) {
+	if (typeof ko === 'undefined')
 		return;
 	
 	// ###################
@@ -24,6 +24,15 @@
 	ko.observableArray.fn.replaceAll = function(valuesToPush) {
 	    this(valuesToPush);
 	    return this;
+	};
+
+    /**
+     * Inverts or toggles a boolean observable.
+     * to use - var obs = ko.observable(false);
+     * obs.toggle();
+     */
+	ko.observable.fn.toggle = function (arg) {
+	    this(!this());
 	};
 	
 	// ###################
@@ -65,6 +74,7 @@
 	    defaultPrecision: 1  
 	};
 
+
 	/**
 	 * JSON Knockout binding. Useful for debugging.
 	 * to use - data-bind="json: value"
@@ -77,5 +87,35 @@
 	        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
 	    }
 	};
+	
+	/**
+     * Sets the HREF attribute (for links)
+     */
+    ko.bindingHandlers.href = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            ko.bindingHandlers.attr.update(element, function () { return { href: value }; });
+        }
+    };
+    
+    /**
+     * Sets the SRC attribute (for images)
+     */
+    ko.bindingHandlers.src = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            ko.bindingHandlers.attr.update(element, function () { return { src: value }; });
+        }
+    };
+    
+    /**
+     * Alias for the inverse of visible
+     */
+    ko.bindingHandlers.hidden = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            ko.bindingHandlers.visible.update(element, function () { return !value; });
+        }
+    };
 
 })(ko);
