@@ -3,6 +3,30 @@
 		return;
 	
 	// ###################
+	// #### COMPUTEDS ####
+	// ###################
+	
+	/**
+	 * Returns a computed variant of the array, where propertyName of each item
+	 * matches the text from observableFilterInput
+	 */
+	ko.filteredArray = function(observableArray, observableFilterInput, propertyName) {
+        return ko.computed(function() {
+            var filter = ko.utils.unwrapObservable(observableFilterInput).toLowerCase();
+            if (!filter) {
+                return observableArray();
+            } else {
+                return ko.utils.arrayFilter(observableArray(), function (item) {
+                    return ko.utils.unwrapObservable(item[propertyName])
+                        .toLowerCase()
+                        .indexOf(filter) >= 0;
+                });
+            }
+        });
+    };
+
+
+	// ###################
 	// #### FUNCTIONS ####
 	// ###################
 	
@@ -74,6 +98,49 @@
 	    defaultPrecision: 1  
 	};
 
+	/**
+	 * HH:mm:ss Knockout binding. Displays an integer number of seconds as HH:mm:ss.
+	 * to use - data-bind="hhmmss: value"
+	 */
+	ko.bindingHandlers.hhmmss = {
+		update: function(element, valueAccessor, allBindingsAccessor) {
+			var value = ko.utils.unwrapObservable(valueAccessor());
+			
+			var sec_num = parseInt(value, 10); // don't forget the second parm
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours;}
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			var time    = hours+':'+minutes+':'+seconds;   
+	
+			ko.bindingHandlers.text.update(element, function() { return time; });
+		}
+	};
+	
+	/**
+	 * HH:mm Knockout binding. Displays an integer number of seconds as HH:mm (seconds not displayed).
+	 * to use - data-bind="hhmm: value"
+	 */
+	ko.bindingHandlers.hhmm = {
+		update: function(element, valueAccessor, allBindingsAccessor) {
+			var value = ko.utils.unwrapObservable(valueAccessor());
+			
+			var sec_num = parseInt(value, 10); // don't forget the second parm
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours;}
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			var time    = hours+':'+minutes;   
+	
+			ko.bindingHandlers.text.update(element, function() { return time; });
+		}
+	};
 
 	/**
 	 * JSON Knockout binding. Useful for debugging.

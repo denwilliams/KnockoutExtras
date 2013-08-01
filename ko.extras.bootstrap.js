@@ -36,6 +36,29 @@
 	    }
 	};
 
+	/**
+     * Twitter bootstrap progress bar
+     * to use - <div data-bind="progress: someNumericObservable"></div>
+     * Based loosely on - http://billpull.github.io/knockout-bootstrap/
+     */
+    ko.bindingHandlers.progress = {
+        init: function(element, valueAccessor) {
+            var $element = $(element);
+            var value = ko.utils.unwrapObservable(valueAccessor());
+
+            var bar = $('<div/>', {
+                'class': 'bar',
+                'style': '{ width:' + value + '% }'
+            });
+
+            //$element.addClass('progress progress-warning').append(bar);
+            $element.addClass('progress').append(bar);
+        },
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            $(element).find('.bar').width(value + '%');
+        }
+    };
 
     /**
      * Applies a tooltip to an elment
